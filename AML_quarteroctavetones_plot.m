@@ -15,8 +15,8 @@ numpres  = (numframe-10)/340;
 % numpres  = floor(numframe-10)/340;%AML edit 11/6/19
 numtones = 17; 
 numpertone  = 20; 
-tones       = dlmread('H:\matlab_code\KAMI\QUARTEROCTAVE.txt');
-unsorttones = dlmread('H:\matlab_code\KAMI\QUARTEROCTAVE.txt');
+tones       = dlmread('/Users/amylemessurier/Google Drive (1)/Froemke/KAMI/QUARTEROCTAVE.txt');
+unsorttones = dlmread('/Users/amylemessurier/Google Drive (1)/Froemke/KAMI/QUARTEROCTAVE.txt');
 [tones,ind] = sort(tones(1:numtones));
 d_df = [];
 d_df(numframe-9:numframe,:) = deltaF_all(1:10,:); %makes first 10 frames last 10 frames
@@ -28,7 +28,7 @@ d(1:(numframe-10),:)     = data(11:end,:);
  
 for cell = 1:numcells
     reformatted = reshape(d_df(1:end-10,cell),(numtones*numpertone),numpres);
-    figure(51); 
+    figure; 
     subplot(2, 1, 1); 
     plot(reformatted, 'Color', [0.5 0.5 0.5]); 
     hold on; 
@@ -78,15 +78,20 @@ for cell = 1:numcells
         fftrials(eachtone,cell).df = ff; 
         fftrials(eachtone,cell).tone = tones(eachtone); 
     end
-    figure(51); 
+
     subplot(2,1,2); 
-    plot(tuningcurve.med(:,cell), 'k'); hold on; 
-    plot(tuningcurve.mean(:,cell), 'k', 'LineWidth', 2); 
+%     plot(tuningcurve.med(:,cell), 'k'); hold on; 
+    sem=tuningcurve.std(:,cell)/sqrt(numpertone);
+    errorbar(1:17,tuningcurve.mean(:,cell),sem, 'k', 'LineWidth', 2); 
     set(gca,'XTick', 1:1:numtones, 'XTickLabel', round(tones./1000, 3, 'significant')); 
-    hold off; 
-    while waitforbuttonpress ~= 0 
-        
-    end
+    ylabel('mean df/f')
+    a=gca;
+    a.XTickLabelRotation=45;
+xlabel('frequency (Hz)');
+%     hold off; 
+%     while waitforbuttonpress ~= 0 
+%         
+%     end
 end
 
 tuningcurve.tone  = tones;

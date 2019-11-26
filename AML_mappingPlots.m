@@ -13,7 +13,7 @@ for i=1:numCells
 end
 
 figure
-samp_rate=4;
+samp_rate=3.91;
 spacing=10;
 stimFrames=10:20:numFrames;
 plot_raw_deltaF( deltaF_all,samp_rate,spacing,stimFrames )

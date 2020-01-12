@@ -10,17 +10,21 @@ for i=1:length(responsive_idx)
     cellnum=responsive_idx(i);
     tonesPlot=find(tuningcurve.h(:,cellnum)==1);
     alltrials=fftrials(:,cellnum);
-    figure; hold on
+    fig=figure; hold on
     subplot(1,3,1)
     numpertone=size(alltrials(1).df,2);
     plotTuning(tuningcurve,cellnum,numpertone)
+    axis square
     title(['cell ',num2str(cellnum)])
     subplot(1,3,2)
     meanPlusTracePlot(alltrials);
+    axis square
     subplot(1,3,3)
     [~,bfind]=max(tuningcurve.med(:,cellnum));
     trials=fftrials(bfind,cellnum);
     plotAllReps(trials)
+    axis square
+    fig.Position= [1 1 1584 523];
 end
 
 
@@ -32,7 +36,7 @@ end
 %      tmp.XTickLabel='tone onset'
 %      tmp.XTickLabelRotation=45;
      tmp.YTick=[];
-     ylabel('stim presentations');
+     ylabel('best frequency presentations');
     xlabel(['best frequency =',num2str(trials.tone)])
         colormap gray
         vline(3.5,'g','onset')
@@ -43,7 +47,7 @@ end
             sem=tuningcurve.std(:,cell)/sqrt(numpertone);
     errorbar(1:17,tuningcurve.med(:,cell),sem, 'k', 'LineWidth', 2); 
     set(gca,'XTick', 1:1:numtones, 'XTickLabel', round(tones./1000, 3, 'significant')); 
-    ylabel('median df/f')
+    ylabel('median dF/F')
     a=gca;
     a.XTickLabelRotation=45;
 xlabel('frequency (kHz)');
@@ -61,6 +65,6 @@ function meanPlusTracePlot( alltrials )
     end
     legend([p(1) p(5) p(9) p(13) p(17)],'4 kHz','8','16', '32','64')
    xlabel('time from tone onset')
-   ylabel('median df/f')
+   ylabel('median dF/F')
 end
 end

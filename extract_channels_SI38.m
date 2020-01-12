@@ -1,4 +1,5 @@
 function [ MovieDataGreen,MetaDataGreen,MovieDataRed,MetaDataRed ] = extract_channels_SI38(varargin)
+
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 if isempty(varargin)

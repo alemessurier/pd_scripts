@@ -1,4 +1,4 @@
-function plot_deltaF( deltaF,samp_rate,spacing,numCells )
+function plot_deltaF( deltaF,samp_rate,spacing,numCells,linewidth )
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 j=1;
@@ -49,7 +49,7 @@ plotAllCells(cellsPlot,deltaF,samp_rate,spacing)
             
             
             time = [1:length(deltaF.(cn))]/samp_rate;
-            plot(time, deltaF.(cn)+((i-1)*spacing),'k');
+            plot(time, deltaF.(cn)+((i-1)*spacing),'k','LineWidth',linewidth);
             hold on
         end
         set(gca,'YTick',[0:spacing:((length(cellsPlot)*spacing))])

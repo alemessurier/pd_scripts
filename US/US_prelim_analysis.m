@@ -1,13 +1,18 @@
 % load in raw fluorescence files
 load('') %path to Fall.mat
 %%
+%only include ROIs classified as cells
+idxCell=find(iscell(:,1));
+Fcell=F(idxCell,:);
+Fneu=Fneu(idxCell,:);
 % subtract neuropil signal
-F_np_corr=F-0.7.*Fneu;
+F_np_corr=Fcell-0.7.*Fneu;
 
 % look through all cells
-[inds_ex]=check_rawROIs_suite2p( F,Fneu,F_np_corr );
-F_include=F_np_corr(~inds_ex,:);
-
+% [inds_ex]=check_rawROIs_suite2p( Fcell,Fneu,F_np_corr );
+% F_include=F_np_corr(~inds_ex,:);
+F_include=F_np_corr;
+% 
 % filter data w/moving median filter
 filtF=zeros(size(F_include));
 for i=1:size(filtF,1)
@@ -18,14 +23,14 @@ for i=1:size(filtF,1)
     
 end
 % calculate dF/F from raw image traces
-deltaF=deltaF_suite2p(F_np_corr);
+deltaF=deltaF_suite2p(filtF);
 
 samp_rate=ops.fs;
 spacing=.5;
 numCells=50;
-plot_deltaF( rawF,samp_rate,10,numCells,0.75 )
+plot_deltaF( rawF,samp_rate,10,15,0.75 )
 %%
-plot_deltaF( deltaF,samp_rate,10,numCells,0.75 )
+plot_deltaF( deltaF,samp_rate,1,50,0.75 )
 
 %% get number of frames in each movie
 
@@ -35,7 +40,7 @@ for K=1:size(filepaths,1)
     numframes=read_numFrames_tiff(filepaths(K,:));
     framesInAcq(K)=numframes;
 end
-
+framesInAcq=repmat(600,size(filepaths,1),1)
 %% reshape deltaF/F for each cell into acquisitions
 
 cellNames=fieldnames(deltaF);
@@ -56,7 +61,9 @@ for cell=1:length(cellNames)
     df_byTrial.(cellNames{cell})=df_blocks;
     mean_dF.(cellNames{cell})=mean(df_blocks,2);
 end
-plot_deltaF( mean_dF,samp_rate,0.5,100,0.5 )
+plot_deltaF( mean_dF,samp_rate,1,15,0.5 )
+stimFrames=300;
+vline(stimFrames)
 z_means=cellfun(@(x)((mean_dF.(x)-mean(mean_dF.(x)))/std(mean_dF.(x)))',cellNames,'un',0);
 z_means=cat(1,z_means{:});
 raw_means=cellfun(@(x)mean_dF.(x)',cellNames,'un',0);
@@ -70,7 +77,7 @@ tmp=gca;
 tmp.YTick=[];
 tmp.XTick=(1:framesInAcq(1)/30)*30;
 tmp.XTickLabel=1:framesInAcq(1)/30;
-vline(150);
+vline(300);
 xlabel('time (s)');
 ylabel('ROI')
 title('mean Z-scored dF/F by ROI, duty cycle 50%')
@@ -116,7 +123,7 @@ mean_df_all2=cat(1,mean_df_all{:});
 cells_sorted=cellNames(inds_sorted);
 
 plot_US_byROI( df_byTrial_bs,30,stimFrame,cells_sorted)
-order=fliplr(350:420);
+order=fliplr(1:262);
 plot_US_byROI( df_byTrial_bs,30,300,cells_sorted(order))
 
 

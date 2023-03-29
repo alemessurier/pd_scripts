@@ -1,6 +1,6 @@
 function [Metadata] = ReadTIFFHeader_SI2019(Metadata)
 
-% ReadTIFFHeader_SI5() extracts SI5 imaging information from the TIFF fileheader
+% ReadTIFFHeader_SI2019() extracts SI2019 imaging information from the TIFF fileheader
 % and stores it in new fields within the Metadata structure.  These fields are:
 % FrameNumberRaw(frame)      Native frame number during acquisition, ie before any online frame averaging
 % FrameNumberTIFF(frame)     Frame number in TIFF, after frame averaging
@@ -11,7 +11,7 @@ function [Metadata] = ReadTIFFHeader_SI2019(Metadata)
 % MovieChannels              Vector containing each imaging channel interleaved frame-by-frame in the TIFF.
 %                            Note: number of channels interleaved in TIFF file is length(MovieChannels).
 
-% You must first have run LoadTIFF_SI5 to read the Metadata.
+% You must first have run LoadTIFF_SI2019 to read the Metadata.
 
 NumberImages = length(Metadata.InfoImage);
 Metadata.FrameNumberRaw = zeros([NumberImages 1]);       % 1-d vectors

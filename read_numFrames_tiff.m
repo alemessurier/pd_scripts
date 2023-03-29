@@ -10,4 +10,3 @@ tempindex = strfind(matchStr{1,1},'=');    % index of equal sign
 numFrames= str2double(matchStr{1,1}(tempindex+1:end));     
 
 end
-

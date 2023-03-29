@@ -32,7 +32,7 @@ next_btn = uicontrol('Style', 'pushbutton', 'String', 'next',...
 waitfor(fig)
 
     function plotAllReps(trials)
-        imagesc(trials);
+        imagesc(trials');
         tmp=gca;
 %          time=((1:size(trials.df,1))/3.91)-4/3.91;
           tmp.XTick=[];
@@ -59,13 +59,13 @@ xlabel('frequency (kHz)');
 function meanPlusTracePlot( tuning )
     tones=[tuning.tones];
     med_trace=cellfun(@(x)median(x,1),tuning.byTone,'un',0);
-    med_trace=cat(1,med_trace{:});
+    med_trace=cat(2,med_trace{:});
     cmap=morgenstemning(length(tones)+3);
-    time=((1:size(med_trace,2))/30)-1/30;
-    p(1)=plot(time,med_trace(1,:),'Color',cmap(1,:));
+    time=((1:size(med_trace,1))/30)-1/30;
+    p(1)=plot(time,med_trace(:,1),'Color',cmap(1,:));
     for i=2:length(tones)
         hold on
-        p(i)=plot(time,med_trace(i,:),'Color',cmap(i,:));
+        p(i)=plot(time,med_trace(:,i),'Color',cmap(i,:));
     end
 %     legend([p(1) p(5) p(9) p(13) p(17)],'4 kHz','8','16', '32','64')
    xlabel('time from tone onset')

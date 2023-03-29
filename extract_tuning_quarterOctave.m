@@ -2,7 +2,7 @@ function [ tuning ] = extract_tuning_quarterOctave( tonesPath,stimFrames,df_byTr
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 tones=dlmread(tonesPath);
-tones=tones(1:18);
+tones=tones(3:20);
 [tonesSorted,tonesidx]=unique(tones);
 stimFrames=stimFrames(tonesidx);
 cellNames=fieldnames(df_byTrial);
@@ -16,15 +16,15 @@ for c=1:length(cellNames)
     sems=meds;
     for frame=1:length(stimFrames)
         stimFrame=stimFrames(frame);
-        chunk=data(:,(stimFrame-30):(stimFrame+60));
+        chunk=data((stimFrame-30):(stimFrame+60),:);
         bl_sub=zeros(size(chunk));
-        for row=1:size(chunk,1)
-            bl_sub(row,:)=chunk(row,:)-mean(chunk(row,1:30),2);
+        for col=1:size(chunk,2)
+            bl_sub(:,col)=chunk(:,col)-mean(chunk(1:30,col),1);
         end
         all_reps{frame}=bl_sub;
-        means(frame)=mean(mean(bl_sub(:,31:60)));
-        meds(frame)=median(mean(bl_sub(:,31:60),2));
-        sems(frame)=std(mean(bl_sub(:,31:60),2))/sqrt(size(bl_sub,1));
+        means(frame)=mean(mean(bl_sub(31:60,:),1));
+        meds(frame)=median(mean(bl_sub(31:60,:),1));
+        sems(frame)=std(mean(bl_sub(31:60,:),1))/sqrt(size(bl_sub,2));
     end
     
     tuning(c).byTone=all_reps;

@@ -1,5 +1,6 @@
 %% multi-day tracked corticocollicular data:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rerun_multiday=1; % flag for re-running pupCall_multidayROIs from scratch; 1=rerun; 0=no
 %% IC622
 paths_IC{1}={'/Users/aml717/data/reduced/IC622/20220718/suite2p/plane0/',...
     '/Users/aml717/data/reduced/IC622/20220719/suite2p/plane0/',...
@@ -11,7 +12,7 @@ save_path='/Users/aml717/data/reduced/IC622/';
 dayCohoused_IC{1}=[0,1,2];
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [~,allDates_calls_IC{1},~,...
         ~,allDates_tones_IC{1},~,...
         MultiDayROIs_calls_IC{1},~,MultiDayROIs_tones_IC{1}]=...
@@ -42,7 +43,7 @@ dayCohoused_IC{2}=[0,1,2];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [~,allDates_calls_IC{2},~,...
         ~,allDates_tones_IC{2},~,...
         MultiDayROIs_calls_IC{2},~,MultiDayROIs_tones_IC{2}]=...
@@ -71,7 +72,7 @@ dayCohoused_IC{3}=[0,1,2,3];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [~,allDates_calls_IC{3},~,...
         ~,allDates_tones_IC{3},~,...
         MultiDayROIs_calls_IC{3},~,MultiDayROIs_tones_IC{3}]=...
@@ -102,7 +103,7 @@ dayCohoused_IC{4}=[0,2,3,4];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [~,allDates_calls_IC{4},~,...
         ~,allDates_tones_IC{4},~,...
         MultiDayROIs_calls_IC{4},~,MultiDayROIs_tones_IC{4}]=...
@@ -126,7 +127,7 @@ dayCohoused_IC{5}=[0,1,2,5];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [allDates_calls_IC{5},allDates_tones_IC{5},...
         MultiDayROIs_calls_IC{5},MultiDayROIs_tones_IC{5}]=...
         pupCall_multidayROIs_load(matchFilePath_IC{5},paths_IC{5},save_path);
@@ -168,7 +169,7 @@ dayCohoused_PS{1}=[0,2,4,5,6];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [allDates_calls_PS{1},allDates_tones_PS{1},...
         MultiDayROIs_calls_PS{1},MultiDayROIs_tones_PS{1}]=...
         pupCall_multidayROIs_load(matchFilePath_PS{1},paths_PS{1},save_path);
@@ -198,7 +199,7 @@ dayCohoused_PS{2}=[0,2,3,4,5,6];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [allDates_calls_PS{2},allDates_tones_PS{2},...
         MultiDayROIs_calls_PS{2},MultiDayROIs_tones_PS{2}]=...
         pupCall_multidayROIs_load(matchFilePath_PS{2},paths_PS{2},save_path);
@@ -220,7 +221,7 @@ dayCohoused_PS{3}=[0,1,2];
 
 cd(save_path)
 tmp=dir('MultiDayROIs.mat');
-if isempty(tmp)
+if isempty(tmp) || rerun_multiday==1
     [~,allDates_calls_PS{3},~,...
         ~,allDates_tones_PS{3},~,...
         MultiDayROIs_calls_PS{3},~,MultiDayROIs_tones_PS{3}]=...

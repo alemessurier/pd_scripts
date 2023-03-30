@@ -16,7 +16,7 @@ for d=1:numel(dFallTrials)
 end
 
 
-data=data_all{4}; % run on first day's data
+data=data_all{1}; % run on first day's data
 %% normalize data vales to 0:1 based on each cells min and max
 dataNorm=nan(size(data));
 for n=1:size(data,1)

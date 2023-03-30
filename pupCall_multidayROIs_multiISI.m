@@ -200,7 +200,7 @@ save([save_path,'MultiDayROIs.mat'],'allDates_calls_10sec','allDates_calls_5sec'
                     semR(:,d)=cellfun(@(x)std(x)/sqrt(length(x)),meanByTrial{d});
                     meanDF_total_calls(d)= allDates(d).meanDF_total_calls(idx_ROI);
                     h_calls(d)=sum(allDates(d).h_calls(idx_ROI,:));
-                    dFByTrial_calls{d}=allDates(d).dFByTrial{:,idx_ROI}
+                    dFByTrial_calls{d}=allDates(d).dFByTrial(:,idx_ROI);
 
                     % make zscored versions of mean responses
                     meanDF_calls=nanmean(meanR(:,d));
@@ -218,7 +218,7 @@ save([save_path,'MultiDayROIs.mat'],'allDates_calls_10sec','allDates_calls_5sec'
             MultiDayROIs(r).meanDF_total_calls=meanDF_total_calls;
             MultiDayROIs(r).h_calls=h_calls;
             MultiDayROIs(r).meanCalls_Z=meanCalls_Z;
-            MultIDayROIs(r).dFbyTrial=dFByTrial_calls;
+            MultiDayROIs(r).dFbyTrial=dFByTrial_calls;
         end
     end
 
@@ -308,7 +308,7 @@ save([save_path,'MultiDayROIs.mat'],'allDates_calls_10sec','allDates_calls_5sec'
                     end
                     meanDF_total_tones(d)=allDates(d).meanDF_total_tones(idx_ROI);
                     h_tones(d)=sum(allDates(d).h_tone(idx_ROI,:));
-                    dFbyTrial{d}=allDates(d).dFByTone{:,idx_ROI};
+                    dFbyTrial{d}=allDates(d).dFByTone(:,idx_ROI);
                     % make zscored versions of mean responses
 
                     meanDF_tones=nanmean(meanRTones(:,d));
